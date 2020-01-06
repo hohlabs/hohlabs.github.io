@@ -256,15 +256,17 @@ code > span.in { color: #808080; font-weight: bold; font-style: italic; } /* Inf
 <li><p>make sure your changes are available in palasi. Skip this step, if you’re working in GCL.</p>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">   <span class="ex">user@host</span>:~/os$ scp -r hohlabs user@palasi.cse.iitd.ac.in:os
    <span class="ex">user@host</span>:~/os$ ssh user@palasi.cse.iitd.ac.in
-   <span class="ex">user@palasi</span>:~$ cd os/hohlabs
-   <span class="ex">user@palasi</span>:~/os/hohlabs$ os-submit-lab <span class="op">&lt;</span>labid<span class="op">&gt;</span></code></pre></div></li>
-<li><p>If you are working in GCL, just submit your changes in palasi using:</p>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">   <span class="ex">user@palasi</span>:~/hohlabs$ os-submit-lab <span class="op">&lt;</span>labid<span class="op">&gt;</span></code></pre></div></li>
+   <span class="ex">user@palasi</span>:~$ cd os/hohlabs </span></code></pre></div></li>
+<li><p>set the "PATH" enviroment variable in your palasi account</p>
+  <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">   <span class="ex">user@palasi</span>:~/os/hohlabs$ export PATH=/misc/research/teaching/sbansal/os/gen-scripts:$PATH </span></code></pre></div></li>
+<li><p>Submit your changes in palasi or from GCL machine using:</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">   <span class="ex">user@palasi</span>:~/os/hohlabs$ os-submit-lab <span class="op">&lt;</span>labid<span class="op">&gt;</span></code></pre></div></li>
 </ul></li>
 <li>Can be submitted from palasi only.</li>
 <li>For teams of more than one members, only one member needs to submit; the submission script allows you to name the team members.</li>
 <li>Resubmissions are allowed.</li>
 <li>For late penalty calculations, we only consider your submission using os-submit-lab ( It is possible to change git commit history and filesystem modification time)</li>
+<li>To avoid seeting the "PATH" environment variable every time you submit your lab or get your submissions, you can set the "PATH" variable in <code>.bashrc</code> file at your home directory in your palasi account.</li>
 <li>Make sure you check your submission is correct by using: <code>os-get-submission</code></li>
 </ul>
 <hr />
