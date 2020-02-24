@@ -740,7 +740,7 @@ code > span.in { color: #808080; font-weight: bold; font-style: italic; } /* Inf
 <li>On key press, the status bar shall be updated with ‘the number of keys pressed so far’ while this long computation task is running(not after it finishes).</li>
 <li>If we select older menu item, shell still take seconds to respond to update status bar. If we select new menu item, shell will be updating status bar, while the computation is running.. Result of both the menu items should be same.</li>
 <li>Atmost one pending long computation task at any point in time.</li>
-<li>Only convert one long computation task to coroutine form(If your shell supports multiple long computation task).</li>
+<li>Only convert one long computation task to coroutine form(If your shell supports multiple long computation tasks).</li>
 </ul>
 </section>
 <section id="information-4" class="level4 unnumbered">
@@ -768,7 +768,7 @@ the fundamental characteristics of a coroutine:
 <ul>
 <li>We’ll store values of “data local to a coroutine between successive calls” in a structure, say f_t.</li>
 <li>We’ll store value of program counter from where the execution has to carry on in another structure - coroutine_t.</li>
-<li>coroutine_init() will initalize the program counter inside coroutine_t structure to zero.</li>
+<li>coroutine_reset() will initalize the program counter inside coroutine_t structure to zero.</li>
 <li>h_begin() will check the value of program counter, and if non-zero, will jump to that value.</li>
 <li>h_yield() stores the PC of next instruction to be executed in coroutine_t structure, and returns.</li>
 <li>h_end() resets the value of PC to zero.</li>
@@ -925,7 +925,7 @@ the fundamental characteristics of a coroutine:
 <li>On key press, the status bar shall be updated with ‘the number of keys pressed so far’ while this long computation task is running(not after it finishes).</li>
 <li>Result of all three menu items should be same.</li>
 <li>Atmost one pending long computation task at any point in time.</li>
-<li>Only convert one long computation task to fiber form(If your shell supports multiple long computation task).</li>
+<li>Only convert one long computation task to fiber form(If your shell supports multiple long computation tasks).</li>
 </ul>
 </section>
 <section id="information-5" class="level4 unnumbered">
@@ -965,9 +965,9 @@ the fundamental characteristics of a coroutine:
 </section>
 <section id="given-5" class="level4 unnumbered">
 <h4>Given</h4>
-<div class="sourceCode"><pre class="sourceCode c"><code class="sourceCode c">        stack_reset(f_stack,f_array,f_arraysize,f_start,f_args...) : resets the stack. use std::ref() from functional to pass references
-        stack_resetN(f_stack,f_array,f_arraysize,f_start,f_args...): resets the stack. <span class="cf">for</span> C/ older C++ compilers.
-        stack_saverestore(from_stack,to_stack)                     : saves the context to from_stack, restore the context from to_stack.</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode c"><code class="sourceCode c">        stack_init(f_stack,f_array,f_arraysize,f_start,f_args...) : resets the stack. use std::ref() from functional to pass references
+        stack_initN(f_stack,f_array,f_arraysize,f_start,f_args...): resets the stack. <span class="cf">for</span> C/ older C++ compilers.
+        stack_saverestore(from_stack,to_stack)                     : saves the context to from_stack, restore the context from to_stack.(shifts the context from 'from_stack' to 'to_stack')</code></pre></div>
 </section>
 <section id="example-usage-of-fibers" class="level4 unnumbered">
 <h4>Example usage of fibers</h4>
@@ -998,7 +998,7 @@ the fundamental characteristics of a coroutine:
         addr_t main_stack;
         addr_t f_stack;
 
-        stack_reset4(f_stack, &amp;f_array, f_arraysize, &amp;f, &amp;main_stack, &amp;f_stack, &amp;shell.f_ret, &amp;shell.f_done);
+        stack_init4(f_stack, &amp;f_array, f_arraysize, &amp;f, &amp;main_stack, &amp;f_stack, &amp;shell.f_ret, &amp;shell.f_done);
 
         stack_saverestore(main_stack,f_stack); <span class="co">//post cond: f_ret=1*1  f_done=false</span>
         stack_saverestore(main_stack,f_stack); <span class="co">//post cond: f_ret=1*2  f_done=false</span>
