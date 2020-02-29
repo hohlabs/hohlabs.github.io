@@ -900,12 +900,20 @@ the fundamental characteristics of a coroutine:
 <h4>Note</h4>
 <ul>
 <li>You’re required to initialize the coroutine from shell_step_coroutine(). You may have a statemachine (DEAD,START,READY), and on state transition from DEAD-&gt;START, you may want to initialize the coroutine.</li>
+<li>Have you noticed that we need to save value of local variables in a structure and that stack is not preserved? In the next part, we’ll implement a stack for each coroutines, and let local variables stored on stack instead of new structure.</li>
 </ul>
 </section>
-<section id="note-6" class="level4 unnumbered">
-<h4>Note</h4>
+<section id="demo-tip-3.1" class="level4 unnumbered">
+<h4>Demo tip</h4>
+<p>Be prepared to answer following viva questions:</p>
 <ul>
-<li>Have you noticed that we need to save value of local variables in a structure and that stack is not preserved? In the next part, we’ll implement a stack for each coroutines, and let local variables stored on stack instead of new structure.</li>
+	<li>On <code>h_end()</code>
+		<ul>
+			<li>Why should <code>h_end()</code> call yield in an infinite loop?</li>
+			<li>What if we just call just yield once?</li>
+			<li>Will your code work in such setting?</li>
+			<li>Are there scenarios where calling yield just once would work?</li>
+		</ul>
 </ul>
 </section>
 </section>
@@ -1084,6 +1092,16 @@ the fundamental characteristics of a coroutine:
 <span class="pp">        }while(false)</span>
 
 </code></pre></div>
+<p>Syntax: <a href="https://gcc.gnu.org/onlinedocs/gcc/Extended-Asm.html">GCC Extended Asm</a></p>
+<div class="sourceCode"><pre class="sourceCode asm"><code class="sourceCode fasm"> asm [volatile] ( AssemblerTemplate
+                  : OutputOperands
+                  [ : InputOperands
+                  [ : Clobbers ] ])</code></pre></div>
+<p>Label 1f means: the immediate label 1 in the forward direction.. and label 1b means the immediate label 1 in the backward direction.. And $1f means address of label 1 in the forward direction.</p>
+<p>In stack_inithelper macro, the _teip gets the address of label 1f.</p>
+<p>:“a”(value) inside input operands means : gcc will make sure %eax is not live at that point, and Move the value into “%eax” register</p>
+<p>:“c”(value) inside input operands means : gcc will make sure %eax is not live at that point, and Move the value into “%ecx” register</p>
+<p>if a register is mentioned in clobbered list - gcc will ensure that register is not live before calling asm statement. (all the integer registers which are not pushed in the macro are mentioned in _ALL_REGISTERS as clobbered. stack_saverestore is a macro - not a function so no calling convention is applied)</p></li>
 </section>
 <section id="tip-5" class="level4 unnumbered">
 <h4>Tip</h4>
@@ -1108,16 +1126,6 @@ the fundamental characteristics of a coroutine:
 <ul>
 <li>To achieve responsiveness, we’ve to add yield points explicitly. Sometimes, it may not be easy - can we trade efficiency and implment pre-emptive scheduling? Yes, But Pre-emption requires support for timers. To use timers, we need to have support for interrupts. which means we need to write interrupt handlers and program Interrupt Descriptor Tables(IDTs)</li>
 <li><p>Before we do so, let’s first implement support for multiple non-premptive threads.</p></li>
-<li><p>Syntax: <a href="https://gcc.gnu.org/onlinedocs/gcc/Extended-Asm.html">GCC Extended Asm</a></p>
-<div class="sourceCode"><pre class="sourceCode asm"><code class="sourceCode fasm"> asm [volatile] ( AssemblerTemplate
-                  : OutputOperands
-                  [ : InputOperands
-                  [ : Clobbers ] ])</code></pre></div>
-<p>Label 1f means: the immediate label 1 in the forward direction.. and label 1b means the immediate label 1 in the backward direction.. And $1f means address of label 1 in the forward direction.</p>
-<p>In stack_inithelper macro, the _teip gets the address of label 1f.</p>
-<p>:“a”(value) inside input operands means : gcc will make sure %eax is not live at that point, and Move the value into “%eax” register</p>
-<p>:“c”(value) inside input operands means : gcc will make sure %eax is not live at that point, and Move the value into “%ecx” register</p>
-<p>if a register is mentioned in clobbered list - gcc will ensure that register is not live before calling asm statement. (all the integer registers which are not pushed in the macro are mentioned in _ALL_REGISTERS as clobbered. stack_saverestore is a macro - not a function so no calling convention is applied)</p></li>
 </ul>
 </section>
 <section id="demo-tip-4" class="level4 unnumbered">
