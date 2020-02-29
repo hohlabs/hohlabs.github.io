@@ -1209,32 +1209,44 @@ the fundamental characteristics of a coroutine:
 </section>
 <section id="tip-6" class="level4 unnumbered">
 <h4>Tip</h4>
-<pre class="tip"><code>     This is the goal: So far, we have the capability to run only one fiber. We need to support multiple fibers - Let&#39;s say:G and H with types:
+<ul>
+  <li>This is the goal: So far, we have the capability to run only one fiber. We need to support multiple fibers - Let&#39;s say: G and H with types:</li>
+    <ol>
+      <li>G:: GArg -&gt; GResult</li>
+      <li>H:: HArg -&gt; HResult</li>
+    </ol>
+  </li>
+  <li>We also want to support multiple invocations of these fibers. (atmax 3).  Question also states about one more constraint - total number of instances for G and H should be &lt;= 5.</li>
 
-     1. G:: GArg -&gt; GResult
-     2. H.:: HArg -&gt; HResult
+  <li>Now, we have to store 3*(GArg,GResult) and 3*(HArg,HResult) in shellstate_t..  just like we did it for f (we&#39;d stored args and result in shellstate for 1.5 and 1.6).</li>
 
-     We also want to support multiple invocations of these fibers. (atmax 3).  Question also states about one more constraint - total number of instances for G and H should be &lt;= 5.
-
-     Now, we have to store 3*(GArg,GResult) and 3*(HArg,HResult) in shellstate_t..  just like we did it for f (we&#39;d stored args and result in shellstate for 1.5 and 1.6).
-
-     What should be a good data structure for storing these? Two common approaches are:
-
-     1. 3*(GArg,GResult) and 3*(HArg,HResult)
-     2. 5* Union of (GArg,GResult) and (HArg,HResult)
-
+  <li>What should be a good data structure for storing these? Two common approaches are:
+    <ol>
+      <li><code>3*(GArg,GResult)</code> and <code>3*(HArg,HResult)</code></li>
+      <li><code>5* Union of (GArg,GResult)</code> and <code>(HArg,HResult)</code></li>
+    </ol>
+  </li>
+  <li>
      How to do scheduling?
-
+     <ol>
+      <li>
      Let&#39;s say, we have a circular buffer/linked list on top of array.
-
+      </li>
+      <li>
      When someone wanted to start an instance(press enter), just check the resource limitations.  and change state, add into the queue.
-
+      </li>
+      <li>
      and in each invocation of fiber_scheduler... just pick one fiber(round robin), and execute.
+      </li>
+      <li>
      ie. in next invocation - pick the next fiber and execute it.. so on.
-
-     This is just one way to implement.. You don&#39;t need to implement this way
-     - mentioned at the last day to help those students who&#39;re running out of
-       time.</code></pre>
+      </li>
+      <li>
+     This is just one way to implement.. You don&#39;t need to implement this way - mentioned at the last day to help those students who&#39;re running out of time.
+      </li>
+    </ol>
+  </li>
+</ul>
 </section>
 <section id="turn-in-6" class="level4 unnumbered">
 <h4>Turn in</h4>
