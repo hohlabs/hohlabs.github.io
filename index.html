@@ -1330,11 +1330,11 @@ the fundamental characteristics of a coroutine:
 <ul>
 <li>Lecture videos:
 <ul>
-<li><a href="">Trap handlers</a></li>
-<li><a href="">Context switch</a></li>
+<li><a href="https://www.youtube.com/watch?v=tXZ_6m2qdu4&list=PLEAYkSg4uSQ3RTwDexX_T0TU7V9hHM_RO&index=8">Trap handlers</a></li>
+<li><a href="https://www.youtube.com/watch?v=VaK8y0tvy_A&list=PLEAYkSg4uSQ3RTwDexX_T0TU7V9hHM_RO&index=18">Context switch</a></li>
 </ul></li>
 <li><p>FXSAVE and FXRSTOR assembly instructions: To save and restore FPU/SIMD registers To save/restore all these registers, Intel provided a single instruction FXSAVE/FXRSTOR.</p>
-<p>To know more about fxsave and fxrstor instruction, please read: <a href="http://www.cse.iitd.ac.in/~deepak/hohlabs/intel.pdf">Vol-1, Chapter 10, Section 5</a>. You can use the example on Page 404 (Section E.2, Example E-1) for the code required to save and restore these registers. Notice that you need to create a space for 512 bytes, aligned at a 16-byte boundary to be able to execute the FXSAVE instruction.</p>
+<p>To know more about fxsave and fxrstor instruction, please read: <a href="https://iitd-plos.github.io/os/2020/ref/ia32-1.pdf">Vol-1, Chapter 10, Section 5</a>. You can use the example on Page 383 (Section E.2, Example E-1) for the code required to save and restore these registers. Notice that you need to create a space for 512 bytes, aligned at a 16-byte boundary to be able to execute the FXSAVE instruction.</p>
 <p>Note that memory address passed to fxsave and fxrstor must be 16 byte aligned. ie. must be a multiple of 16.</p></li>
 <li><p>Possible Control flow</p>
 <p>Make sure your ring0_prempt will be able to work with below scenario</p></li>
@@ -1348,10 +1348,10 @@ the fundamental characteristics of a coroutine:
    <span class="cf">return</span> a+b;
 }</code></pre></div>
 <p>Which registers are they going to use, and which instructions? integers registers? addl instruction? No! What’s the format of floats? number is represented as (sign,mantisa,exponent). To know about it, please read about IEEE754 floating point representation/basic computer architecture course. That’s where legacy 8087 FPU comes into picture.</p>
-<p>It has 8 80-bit FPU registers: st(0),st(1), st(2)…st(7). ( 1 bit sign, 64 bit mantissa, 15 bit exponent) sizeof(double)=8. Floating point loads and stores will convert this 80-bit representation to 64 bit representation when it store to memory.. and viceversa. To know about FPU registers, please read: <a href="http://www.cse.iitd.ac.in/~deepak/lab1/intel.pdf">Vol-1, Chapter 8</a></p></li>
+<p>It has 8 80-bit FPU registers: st(0),st(1), st(2)…st(7). ( 1 bit sign, 64 bit mantissa, 15 bit exponent) sizeof(double)=8. Floating point loads and stores will convert this 80-bit representation to 64 bit representation when it store to memory.. and viceversa. To know about FPU registers, please read: <a href="https://iitd-plos.github.io/os/2020/ref/ia32-1.pdf">Vol-1, Chapter 8</a></p></li>
 <li><p>MMX/SIMD2: With one instruction, we want to add N pairs in parallel, which means we want registers than hold N ints (or N floats).</p>
-<p>x86 has mm0, mm1, mm2.. mm7 (which are SIMD2, ie. N=2 - it holds two floats). To know more about MMx registers, please read: <a href="http://www.cse.iitd.ac.in/~deepak/hohlabs/intel.pdf">Vol-1 Chapter 9</a></p></li>
-<li><p>SSE/SIMD4: It also introduced SIMD4(128 bit registers) xmm registers. xmm0, xmm1 … xmm7. To know more about xmm registers, please read: <a href="http://www.cse.iitd.ac.in/~deepak/hohlabs/intel.pdf">Vol-1 Chapter 10</a></p></li>
+<p>x86 has mm0, mm1, mm2.. mm7 (which are SIMD2, ie. N=2 - it holds two floats). To know more about MMx registers, please read: <a href="https://iitd-plos.github.io/os/2020/ref/ia32-1.pdf">Vol-1 Chapter 9</a></p></li>
+<li><p>SSE/SIMD4: It also introduced SIMD4(128 bit registers) xmm registers. xmm0, xmm1 … xmm7. To know more about xmm registers, please read: <a href="https://iitd-plos.github.io/os/2020/ref/ia32-1.pdf">Vol-1 Chapter 10</a></p></li>
 <li><p>AVX/SIMD8 Intel also introduced (SIMD8) ymm registers in architectures like Sandybridge, Haswell etc. but since our gcl machines doesn’t support these - we won’t discuss it here.</p></li>
 <li><p>Overview of preemption handler’s control flow:</p></li>
 </ul>
@@ -1383,7 +1383,7 @@ the fundamental characteristics of a coroutine:
 <li><p>Both the shell_step_fiber and shell_step_fiber_sched are passed an dev_lapic_t object. which has a member function:</p>
 <div class="sourceCode"><pre class="sourceCode c"><code class="sourceCode c">reset_timer_count(<span class="dt">int</span> count).</code></pre></div>
 <p>LAPIC Timer unit will decrement this count every tick, and when it reaches zero, will fire a timer interrupt.</p>
-<p>To know more about LAPIC Timer: please read: <a href="http://www.cse.iitd.ac.in/~deepak/hohlabs/intel.pdf">Vol 3A, 10.5.4.</a></p></li>
+<p>To know more about LAPIC Timer: please read: <a href="http://iitd-plos.github.io/os/2020">Vol 3A, 10.5.4.</a></p></li>
 </ul></li>
 <li>Our kernel does not have any global variables, and our trap handler is stateless. So we map our state to %gs. ie. %gs:0 will point to zeroth byte of core_t structure. %gs:1 will point to first byte.. so on (Read the code for more info).</li>
 </ul>
