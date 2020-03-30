@@ -1452,7 +1452,7 @@ the fundamental characteristics of a coroutine:
 <h4>Aim</h4>
 <p>In this part, we’ll learn about multicore programming by implementing a SPSC queue and use it to send messages between two cores.</p>
 <ul>
-<li>I’ve modified the apps/labs.cc to execute the render() function in another core. The output of shell_render() - renderstate_t object - will be send to core #1 using the SPSQ queue. And core #1, will call the render() when it receives the renderstate_t object. Note: this means you won’t see shell untill you implement SPSC queue correctly.</li>
+<li>I’ve modified the apps/labs.cc to execute the render() function in another core. The output of shell_render() - renderstate_t object - will be send to core #1 using the SPSC queue. And core #1, will call the render() when it receives the renderstate_t object. Note: this means you won’t see shell untill you implement SPSC queue correctly.</li>
 <li>You’ll have to implement Leslie Lamport’s portable lock-free single-producer single-consumer bounded buffer algorithm, modified to suit the given template</li>
 <li>Size of buffer will always be a power of 2.</li>
 </ul>
@@ -1634,7 +1634,7 @@ the fundamental characteristics of a coroutine:
 <li>Integers and FPU/SIMD register values to 0</li>
 <li>Startip and eip to correct virtual address</li>
 <li>IOPL= 3 and in Eflags make IF =1 and IOPL =3</li>
-<li>allocate a large page for used for both process stack and kernel-process communication</li>
+<li>allocate a large page used for both process stack and kernel-process communication</li>
 <li>Stackend = end of stack page(assume growing downwards, also refer xv6)</li>
 <li>esp as shown in the figure below(Stackend + PG_SIZE - 4KB)</li>
 </ul></li>
@@ -1660,10 +1660,10 @@ the fundamental characteristics of a coroutine:
 </section>
 <section id="information-9" class="level4 unnumbered">
 <h4>Information</h4>
-<p>Please see lecture videos:</p>
+<p>Useful links:</p>
 <ul>
-<li><a href="">ELF headers</a></li>
-<li><a href="">Page table</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Executable_and_Linkable_Format#Program_header">ELF headers</a></li>
+<li><a href="https://iitd-plos.github.io/os/2020/lec/l15.html">Page table</a></li>
 <li><a href="">First user program</a></li>
 </ul>
 </section>
@@ -1673,29 +1673,31 @@ the fundamental characteristics of a coroutine:
 <section id="define-9" class="level4 unnumbered">
 <h4>Define</h4>
 <ul>
-<li>load the elf file contents from the range (from,fromsize) and initialize the process ‘proc’</li>
-<li>(from, fromsize) : ELF</li>
-<li>proc : process structure</li>
-<li>pool4M : a simple pool manager.</li>
-</ul>
-<div class="sourceCode"><pre class="sourceCode c"><code class="sourceCode c"><span class="dt">static</span> <span class="kw">inline</span> <span class="dt">void</span> elf_load(addr_t from, <span class="dt">size_t</span> fromsize, process_t&amp; proc, bitpool_t&amp; pool4M);</code></pre></div>
+  <li><div class="sourceCode"><pre class="sourceCode c"><code class="sourceCode c"><span class="dt">static</span> <span class="kw">inline</span> <span class="dt">void</span> elf_load(addr_t from, <span class="dt">size_t</span> fromsize, process_t&amp; proc, bitpool_t&amp; pool4M);</code></pre></div>
+      <ul>
+        <li>load the elf file contents from the range (from,fromsize) and initialize the process ‘proc’</li>
+        <li>(from, fromsize) : ELF</li>
+        <li>proc : process structure</li>
+        <li>pool4M : 4 MB pool manager.</li>
+      </ul></li>
+  <li><div class="sourceCode"><pre class="sourceCode c"><code class="sourceCode c"><span class="dt">static</span> <span class="kw">inline</span> <span class="dt">void</span> ring3_step(preempt_t&amp; preempt, process_t&amp; proc, dev_lapic_t&amp; lapic);</code></pre></div>
+      <ul>
+        <li>restore process’s state from proc structure.
+          <ul>
+              <li>you need to switch process’s page table (refer devices/mmu32.h)</li>
+              <li>you need to restore all the registers (integer, FPU/SIMD) to CPU state</li>
+              <li>similar to xv6 first process, create a trapframe in stack with (process ss, esp, eflags, cs, eip)</li>
+              <li>refer devices/gdt32.h for user code and data segment number.  Make sure to set the correct privilege level (=3)</li>
+              <li>switch to user mode (iret).</li>
+          </ul></li>
+          <li>Kernel interrupts if occurred when CPU is in ring3, traphandlers are executed with esp=main_stack_end. So no need to save esp when you switch to ring 3.</li>
+          <li>This function shall not return. So you don’t need to save current stack pointer or local variables or old CPU registers.</li>
+      </ul></li>
+  <li><div class="sourceCode"><pre class="sourceCode c"><code class="sourceCode c"><span class="dt">static</span> <span class="kw">inline</span> <span class="dt">void</span> ring3_step_done(process_t&amp; proc, dev_lapic_t&amp; lapic);</code></pre></div>
 <ul>
-<li>restore process’s state from proc structure.
-<ul>
-<li>you need to switch process’s page table (refer devices/mmu32.h)</li>
-<li>you need to restore all the registers (integer, FPU/SIMD) to CPU state</li>
-<li>similar to xv6 first process, create a trapframe in stack with (process ss, esp, eflags, cs, eip)</li>
-<li>refer devices/gdt32.h for user code and data segment number</li>
-<li>switch to user mode (iret).</li>
-<li>kernel interrupts if occurred when CPU is in ring3, traphandlers are executed with esp=main_stack_end. So no need to save esp when you switch to ring 3.</li>
+  <li>This function shall be called after process is preempted.</li>
 </ul></li>
-<li>This function shall not return. So you don’t need to save current stack pointer or local variables or old CPU registers.</li>
 </ul>
-<div class="sourceCode"><pre class="sourceCode c"><code class="sourceCode c"><span class="dt">static</span> <span class="kw">inline</span> <span class="dt">void</span> ring3_step(preempt_t&amp; preempt, process_t&amp; proc, dev_lapic_t&amp; lapic);</code></pre></div>
-<ul>
-<li>This function shall be called after process is preempted.</li>
-</ul>
-<div class="sourceCode"><pre class="sourceCode c"><code class="sourceCode c"><span class="dt">static</span> <span class="kw">inline</span> <span class="dt">void</span> ring3_step_done(process_t&amp; proc, dev_lapic_t&amp; lapic);</code></pre></div>
 </section>
 <section id="given-9" class="level4 unnumbered">
 <h4>Given</h4>
