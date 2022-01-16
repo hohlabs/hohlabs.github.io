@@ -210,7 +210,7 @@ code > span.in { color: #808080; font-weight: bold; font-style: italic; } /* Inf
 <section id="clone-the-repository" class="level4 unnumbered">
 <h4>Clone the repository</h4>
 <p>Since we both will work on this kernel, we need to have a version control system. We’ll use git as our version control system. Please clone the repository to your local directory</p>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">     <span class="ex">user@host</span>:~$ git clone ssh://<span class="op">&lt;</span>user<span class="op">&gt;</span>@palasi.cse.iitd.ac.in/misc/research/teaching/sbansal/os/hohlabs.git
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">     <span class="ex">user@host</span>:~$ git clone ssh://<span class="op">&lt;</span>user<span class="op">&gt;</span>@proton.cse.iitd.ac.in:22222/opt/os/hohlabs
      <span class="ex">user@host</span>:~$ cd hohlabs
      <span class="ex">user@host</span>:~/hohlabs$</code></pre></div>
 </section>
@@ -251,22 +251,28 @@ code > span.in { color: #808080; font-weight: bold; font-style: italic; } /* Inf
 <section id="submission" class="level4 unnumbered">
 <h4>Submission</h4>
 <ul>
-<li>To submit the assignment, from palasi:
+<li>To submit the assignment, from proton:
 <ul>
-<li><p>make sure your changes are available in palasi. Skip this step, if you’re working in GCL.</p>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">   <span class="ex">user@host</span>:~/os$ scp -r hohlabs user@palasi.cse.iitd.ac.in:os
-   <span class="ex">user@host</span>:~/os$ ssh user@palasi.cse.iitd.ac.in
-   <span class="ex">user@palasi</span>:~$ cd os/hohlabs </span></code></pre></div></li>
-<li><p>set the "PATH" enviroment variable in your palasi account</p>
-  <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">   <span class="ex">user@palasi</span>:~/os/hohlabs$ export PATH=/misc/research/teaching/sbansal/os/gen-scripts:$PATH </span></code></pre></div></li>
-<li><p>Submit your changes in palasi or from GCL machine using:</p>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">   <span class="ex">user@palasi</span>:~/os/hohlabs$ os-submit-lab <span class="op">&lt;</span>labid<span class="op">&gt;</span></code></pre></div></li>
+<li><p>Copy your code with changes to your user account within proton</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">   
+   <span class="ex">user@host</span>:~/os$ scp -P 22222 -r hohlabs user@proton.cse.iitd.ac.in:~/
+   <span class="ex">user@host</span>:~/os$ ssh user@proton.cse.iitd.ac.in -p 22222
+   <span class="ex">user@col331</span>:~$ cd hohlabs </span></code></pre></div></li>
+<!-- <li><p>set the "PATH" enviroment variable in your palasi account</p>
+  <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">   <span class="ex">user@palasi</span>:~/os/hohlabs$ export PATH=/misc/research/teaching/sbansal/os/gen-scripts:$PATH </span></code></pre></div></li> -->
+<li><p>Submit your changes in proton using:</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">   
+<span class="ex">user@col331</span>:~/hohlabs$ os-submit-lab <span class="op">&lt;</span>labid<span class="op">&gt;</span></code></pre></div></li>
+
+<p>For example:</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">   <span class="ex">user@col331</span>:~/hohlabs$ os-submit-lab lab1</code></pre></div>
+
 </ul></li>
-<li>Can be submitted from palasi only.</li>
+<li>Can be submitted from proton only.</li>
 <li>For teams of more than one members, only one member needs to submit; the submission script allows you to name the team members.</li>
 <li>Resubmissions are allowed.</li>
 <li>For late penalty calculations, we only consider your submission using os-submit-lab ( It is possible to change git commit history and filesystem modification time)</li>
-<li>To avoid seeting the "PATH" environment variable every time you submit your lab or get your submissions, you can set the "PATH" variable in <code>.bashrc</code> file at your home directory in your palasi account.</li>
+<!-- <li>To avoid seeting the "PATH" environment variable every time you submit your lab or get your submissions, you can set the "PATH" variable in <code>.bashrc</code> file at your home directory in your palasi account.</li> -->
 <li>Make sure you check your submission is correct by using: <code>os-get-submission</code></li>
 </ul>
 <hr />
