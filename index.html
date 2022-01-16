@@ -135,7 +135,7 @@ code > span.in { color: #808080; font-weight: bold; font-style: italic; } /* Inf
   <span class="ex">qemu</span>     : run qemu
   <span class="ex">qemu-gdb</span> : qemu with gdb</code></pre></div></li>
 <li>Usage: make iso / make qemu / make qemu-gdb B=debug</li>
-<li><p>Try ‘make qemu-direct’ and ‘make qemu-gdb-direct B=debug’ if you face any issues.</p></li>
+<li><p>Try <code class="sourceCode bash">make qemu-direct</code> and <code class="sourceCode bash">make qemu-gdb-direct B=debug</code> if you face any issues.</p></li>
 </ul>
 </section>
 <section id="on-boot" class="level4 unnumbered">
@@ -194,6 +194,7 @@ code > span.in { color: #808080; font-weight: bold; font-style: italic; } /* Inf
 <p>So here’s what you should do:</p>
 <section id="tools" class="level4 unnumbered">
 <h4>Tools</h4>
+<h5>Note: You may safely skip this step/subsection if you are using the provided VM.</h5>
 <p>Please ensure you have latest version of:</p>
 <ul>
 <li>qemu (package: qemu qemu-system)</li>
@@ -209,6 +210,7 @@ code > span.in { color: #808080; font-weight: bold; font-style: italic; } /* Inf
 </section>
 <section id="clone-the-repository" class="level4 unnumbered">
 <h4>Clone the repository</h4>
+  <h5>Note: You may safely skip this step if you are using the provided VM.  The repo is already repo in <code>~/hohlabs</code> directory.</h5>
 <p>Since we both will work on this kernel, we need to have a version control system. We’ll use git as our version control system. Please clone the repository to your local directory</p>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">     <span class="ex">user@host</span>:~$ git clone ssh://<span class="op">&lt;</span>user<span class="op">&gt;</span>@proton.cse.iitd.ac.in:22222/opt/os/hohlabs
      <span class="ex">user@host</span>:~$ cd hohlabs
@@ -219,14 +221,11 @@ code > span.in { color: #808080; font-weight: bold; font-style: italic; } /* Inf
 <p>For each parts, do</p>
 <ol type="1">
 <li><p>Please get the changes done by lab-instructor by merging the corresponding branch to your master branch</p>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"> <span class="ex">user@host</span>:~/hohlabs$ git pull
- <span class="ex">user@host</span>:~/hohlabs$ git merge origin/<span class="op">&lt;</span>branch_name<span class="op">&gt;</span></code></pre></div>
+  <div class="sourceCode"><code class="sourceCode bash"><span class="ex">user@host</span>:~/hohlabs$ git merge origin/<span class="op">&lt;</span>branch_name<span class="op">&gt;</span></code></div>
 <p>For example, to get first part, do:</p>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"> <span class="ex">user@host</span>:~/hohlabs$ git pull
- <span class="ex">user@host</span>:~/hohlabs$ git merge origin/vgatext</code></pre></div></li>
+<div class="sourceCode"><code class="sourceCode bash"><span class="ex">user@host</span>:~/hohlabs$ git merge origin/vgatext</code></div></li>
 <li><p><em>Modify the files under the directory “labs” only </em> to add the missing functionality. For example, for the first part, you should modify the function writechar in labs/vgatext.h</p>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"> <span class="ex">user@host</span>:~/hohlabs$ git pull
- <span class="ex">user@host</span>:~/hohlabs$ vim labs/vgatext.h</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="ex">user@host</span>:~/hohlabs$ vim labs/vgatext.h</code></pre></div>
 <p>Test your code by:</p>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"> <span class="ex">user@host</span>:~/hohlabs$ make qemu</code></pre></div>
 <p>(Optional) To debug:</p>
@@ -244,7 +243,7 @@ code > span.in { color: #808080; font-weight: bold; font-style: italic; } /* Inf
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">   <span class="ex">user@host</span>:~/hohlabs$ git add -p labs/
    <span class="ex">user@host</span>:~/hohlabs$ git commit -m <span class="st">&quot;your log message&quot;</span>
 
-   <span class="co">#Advanced: git add labs/ ; git commit -m &quot;commit message&quot; ; git stash ; ....  now do pull/merge .... ; git stash pop;</span></code></pre></div></li>
+   <span class="co">#Advanced: git add labs/ ; git commit -m &quot;commit message&quot; ; git stash ; ....  now do merge .... ; git stash pop;</span></code></pre></div></li>
 <li><p>Do submit your code so far. (resubmissions are allowed)</p></li>
 </ol>
 </section>
@@ -261,8 +260,8 @@ code > span.in { color: #808080; font-weight: bold; font-style: italic; } /* Inf
 <!-- <li><p>set the "PATH" enviroment variable in your palasi account</p>
   <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">   <span class="ex">user@palasi</span>:~/os/hohlabs$ export PATH=/misc/research/teaching/sbansal/os/gen-scripts:$PATH </span></code></pre></div></li> -->
 <li><p>Submit your changes in proton using:</p>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">   
-<span class="ex">user@col331</span>:~/hohlabs$ os-submit-lab <span class="op">&lt;</span>labid<span class="op">&gt;</span></code></pre></div></li>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="ex">user@col331</span>:~/hohlabs$ os-submit-lab <span class="op">&lt;</span>labid<span class="op">&gt;</span></code></pre></div></li>
+  <p>(Optional) Delete <code>_tmp/</code> directory and <code>qemu.log</code> file if you get <code>File ... too big</code> error</p>
 
 <p>For example:</p>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">   <span class="ex">user@col331</span>:~/hohlabs$ os-submit-lab lab1</code></pre></div>
@@ -271,7 +270,7 @@ code > span.in { color: #808080; font-weight: bold; font-style: italic; } /* Inf
 <li>Can be submitted from proton only.</li>
 <li>For teams of more than one members, only one member needs to submit; the submission script allows you to name the team members.</li>
 <li>Resubmissions are allowed.</li>
-<li>For late penalty calculations, we only consider your submission using os-submit-lab ( It is possible to change git commit history and filesystem modification time)</li>
+<li>For late penalty calculations, we only consider your submission using <code>os-submit-lab</code> (It is possible to change git commit history and filesystem modification time)</li>
 <!-- <li>To avoid seeting the "PATH" environment variable every time you submit your lab or get your submissions, you can set the "PATH" variable in <code>.bashrc</code> file at your home directory in your palasi account.</li> -->
 <li>Make sure you check your submission is correct by using: <code>os-get-submission</code></li>
 </ul>
@@ -324,8 +323,7 @@ code > span.in { color: #808080; font-weight: bold; font-style: italic; } /* Inf
 <section id="mergerequest" class="level4 unnumbered">
 <h4>MergeRequest</h4>
 <p>I’ve added few more code in origin/vgatext branch. Please merge it with your master branch</p>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">        <span class="ex">user@host</span>:~/hohlabs$ git pull
-        <span class="ex">user@host</span>:~/hohlabs$ git merge origin/vgatext</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="ex">user@host</span>:~/hohlabs$ git merge origin/vgatext</code></pre></div>
 </section>
 <section id="aim" class="level4 unnumbered">
 <h4>Aim</h4>
@@ -413,8 +411,7 @@ code > span.in { color: #808080; font-weight: bold; font-style: italic; } /* Inf
 <section id="mergerequest-1" class="level4 unnumbered">
 <h4>MergeRequest</h4>
 <p>Now it’s my turn. I’ve added few more code in origin/serial branch. Please merge it with your master branch</p>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">    <span class="ex">user@host</span>:~/hohlabs$ git pull
-    <span class="ex">user@host</span>:~/hohlabs$ git merge origin/serial</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="ex">user@host</span>:~/hohlabs$ git merge origin/serial</code></pre></div>
 </section>
 <section id="aim-1" class="level4 unnumbered">
 <h4>Aim</h4>
@@ -501,8 +498,7 @@ code > span.in { color: #808080; font-weight: bold; font-style: italic; } /* Inf
 <section id="mergerequest-2" class="level4 unnumbered">
 <h4>MergeRequest</h4>
 <p>I’ve added few more code in origin/keyboard branch. Please merge it with your master branch</p>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">    <span class="ex">user@host</span>:~/hohlabs$ git pull
-    <span class="ex">user@host</span>:~/hohlabs$ git merge origin/keyboard</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="ex">user@host</span>:~/hohlabs$ git merge origin/keyboard</code></pre></div>
 </section>
 <section id="aim-2" class="level4 unnumbered">
 <h4>Aim</h4>
@@ -594,8 +590,7 @@ code > span.in { color: #808080; font-weight: bold; font-style: italic; } /* Inf
 <section id="mergerequest-3" class="level4 unnumbered">
 <h4>MergeRequest</h4>
 <p>I’ve added few more code in origin/shell branch. Please merge it with your master branch</p>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">    <span class="ex">user@host</span>:~/hohlabs$ git pull
-    <span class="ex">user@host</span>:~/hohlabs$ git merge origin/shell</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="ex">user@host</span>:~/hohlabs$ git merge origin/shell</code></pre></div>
 </section>
 <section id="aim-3" class="level4 unnumbered">
 <h4>Aim</h4>
@@ -735,8 +730,7 @@ code > span.in { color: #808080; font-weight: bold; font-style: italic; } /* Inf
 <section id="mergerequest-4" class="level4 unnumbered">
 <h4>MergeRequest</h4>
 <p>I’ve added few more code in origin/coroutine branch. Please merge it with your master branch</p>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">    <span class="ex">user@host</span>:~/hohlabs$ git pull
-    <span class="ex">user@host</span>:~/hohlabs$ git merge origin/coroutine</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="ex">user@host</span>:~/hohlabs$ git merge origin/coroutine</code></pre></div>
 </section>
 <section id="aim-4" class="level4 unnumbered">
 <h4>Aim</h4>
@@ -928,8 +922,7 @@ the fundamental characteristics of a coroutine:
 <section id="mergerequest-5" class="level4 unnumbered">
 <h4>MergeRequest</h4>
 <p>I’ve added few more code in origin/fiber branch. Please merge it with your master branch</p>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">        <span class="ex">user@host</span>:~/hohlabs$ git pull
-        <span class="ex">user@host</span>:~/hohlabs$ git merge origin/fiber</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="ex">user@host</span>:~/hohlabs$ git merge origin/fiber</code></pre></div>
 </section>
 <section id="aim-5" class="level4 unnumbered">
 <h4>Aim</h4>
@@ -1152,8 +1145,7 @@ the fundamental characteristics of a coroutine:
 <section id="mergerequest-6" class="level4 unnumbered">
 <h4>MergeRequest</h4>
 <p>I’ve added few more code in origin/fiber_scheduler branch. Please merge it with your master branch</p>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">        <span class="ex">user@host</span>:~/hohlabs$ git pull
-        <span class="ex">user@host</span>:~/hohlabs$ git merge origin/fiber_scheduler</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="ex">user@host</span>:~/hohlabs$ git merge origin/fiber_scheduler</code></pre></div>
 </section>
 <section id="aim-6" class="level4 unnumbered">
 <h4>Aim</h4>
@@ -1288,8 +1280,7 @@ the fundamental characteristics of a coroutine:
 <section id="mergerequest-7" class="level4 unnumbered">
 <h4>MergeRequest</h4>
 <p>I’ve added few more code in origin/preemption branch. Please merge it with your master branch</p>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">    <span class="ex">user@host</span>:~/hohlabs$ git pull
-    <span class="ex">user@host</span>:~/hohlabs$ git merge origin/preemption</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="ex">user@host</span>:~/hohlabs$ git merge origin/preemption</code></pre></div>
 </section>
 <section id="aim-7" class="level4 unnumbered">
 <h4>Aim</h4>
@@ -1451,8 +1442,7 @@ the fundamental characteristics of a coroutine:
 <section id="mergerequest-8" class="level4 unnumbered">
 <h4>MergeRequest</h4>
 <p>I’ve added few more code in origin/multicore branch. Please merge it with your master branch</p>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">    <span class="ex">user@host</span>:~/hohlabs$ git pull
-    <span class="ex">user@host</span>:~/hohlabs$ git merge origin/multicore</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="ex">user@host</span>:~/hohlabs$ git merge origin/multicore</code></pre></div>
 </section>
 <section id="aim-8" class="level4 unnumbered">
 <h4>Aim</h4>
@@ -1618,8 +1608,7 @@ the fundamental characteristics of a coroutine:
 <section id="mergerequest-9" class="level4 unnumbered">
 <h4>MergeRequest</h4>
 <p>I’ve added few more code in origin/ring3 branch. Please merge it with your master branch</p>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">    <span class="ex">user@host</span>:~/hohlabs$ git pull
-    <span class="ex">user@host</span>:~/hohlabs$ git merge origin/ring3</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="ex">user@host</span>:~/hohlabs$ git merge origin/ring3</code></pre></div>
 </section>
 <section id="aim-9" class="level4 unnumbered">
 <h4>Aim</h4>
@@ -1733,8 +1722,7 @@ the fundamental characteristics of a coroutine:
 <section id="mergerequest-10" class="level4 unnumbered">
 <h4>MergeRequest</h4>
 <p>I’ve added few more code in origin/ring3 branch. Please merge it with your master branch</p>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">        <span class="ex">user@host</span>:~/hohlabs$ git pull
-        <span class="ex">user@host</span>:~/hohlabs$ git merge origin/ring3</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="ex">user@host</span>:~/hohlabs$ git merge origin/ring3</code></pre></div>
 </section>
 <section id="aim-10" class="level4 unnumbered">
 <h4>Aim</h4>
@@ -1796,8 +1784,7 @@ the fundamental characteristics of a coroutine:
 <h2><span class="header-section-number">4.3</span> Upcall/Signals</h2>
 <section id="mergerequest-11" class="level4 unnumbered">
 <h4>MergeRequest</h4>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">    <span class="ex">user@host</span>:~/hohlabs$ git pull
-    <span class="ex">user@host</span>:~/hohlabs$ git merge origin/ring3</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="ex">user@host</span>:~/hohlabs$ git merge origin/ring3</code></pre></div>
 </section>
 <section id="aim-11" class="level4 unnumbered">
 <h4>Aim</h4>
@@ -1883,8 +1870,7 @@ the fundamental characteristics of a coroutine:
 <h2><span class="header-section-number">4.4</span> Downcall/System call</h2>
 <section id="mergerequest-12" class="level4 unnumbered">
 <h4>MergeRequest</h4>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">    <span class="ex">user@host</span>:~/hohlabs$ git pull
-    <span class="ex">user@host</span>:~/hohlabs$ git merge origin/ring3</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="ex">user@host</span>:~/hohlabs$ git merge origin/ring3</code></pre></div>
 </section>
 <section id="aim-12" class="level4 unnumbered">
 <h4>Aim</h4>
@@ -2080,8 +2066,7 @@ the fundamental characteristics of a coroutine:
 <h2><span class="header-section-number">5.1</span> App: Virtual Memory</h2>
 <section id="mergerequest-13" class="level4 unnumbered">
 <h4>MergeRequest</h4>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">    <span class="ex">user@host</span>:~/hohlabs$ git pull
-    <span class="ex">user@host</span>:~/hohlabs$ git merge origin/ring3</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="ex">user@host</span>:~/hohlabs$ git merge origin/ring3</code></pre></div>
 </section>
 <section id="aim-13" class="level4 unnumbered">
 <h4>Aim</h4>
@@ -2266,14 +2251,13 @@ hoh_assert(varray[to_index(x,y,z)] == f(x,y,z),<span class="st">&quot; Bug&quot;
 <li>Now I’ve moved your shell into user mode.</li>
 <li>And then I’ll split the user shell into two and render the UI on another process.</li>
 </ul>
-<p>In short: - You’ve implemented kernel coroutines, kernel threads and a kernel thread scheduler. And implmented a kernel application - shell. - You also have implemented user coroutines, user threads and a user thread scheduler. And implemented a user application - shell.</p>
+<p>In short: - You’ve implemented kernel coroutines, kernel threads and a kernel thread scheduler. And implemented a kernel application - shell. - You also have implemented user coroutines, user threads and a user thread scheduler. And implemented a user application - shell.</p>
 <hr />
 <p><em>Shell is already done for you!</em> Your shell which you implemented in part 1.4 is already moved to user mode as an application. So the role has been revereed - whatever you’ve done till parts 1.9 are now in user mode. And parts 1.10 - parts 1.13 are in kernel.</p>
 <hr />
 <section id="mergerequest-14" class="level4 unnumbered">
 <h4>MergeRequest</h4>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">    <span class="ex">user@host</span>:~/hohlabs$ git pull
-    <span class="ex">user@host</span>:~/hohlabs$ git merge origin/ring3_shell</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="ex">user@host</span>:~/hohlabs$ git merge origin/ring3_shell</code></pre></div>
 </section>
 <section id="aim-14" class="level4 unnumbered">
 <h4>Aim</h4>
