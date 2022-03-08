@@ -1527,13 +1527,13 @@ the fundamental characteristics of a coroutine:
   <span class="co">//</span>
 
   <span class="co">// Read/Write shared memory data structure</span>
-  <span class="dt">void</span> write_sync(channel_t&amp; ch);
+  <span class="dt">void</span> write_release(channel_t&amp; ch);
 
   <span class="co">// Read/Write shared memory data structure</span>
-  <span class="dt">void</span> read_sync(channel_t&amp; ch);
+  <span class="dt">void</span> read_acquire(channel_t&amp; ch);
 
   <span class="co">// Update the state, if any.</span>
-  <span class="dt">void</span> delete_sync();
+  <span class="dt">void</span> delete_release();
 
 
 };</code></pre></div>
@@ -1568,10 +1568,10 @@ the fundamental characteristics of a coroutine:
   <span class="co">// PS:   Don&#39;t go by the function names.</span>
 
   <span class="co">// Read/write shared memory data structure</span>
-  <span class="dt">void</span> read_sync(channel_t&amp; ch);
+  <span class="dt">void</span> read_release(channel_t&amp; ch);
 
   <span class="co">// Read/Write shared memory data structure</span>
-  <span class="dt">void</span> write_sync(channel_t&amp; ch);
+  <span class="dt">void</span> write_acquire(channel_t&amp; ch);
 
 };</code></pre></div>
 </section>
