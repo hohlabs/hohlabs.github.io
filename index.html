@@ -1719,11 +1719,6 @@ the fundamental characteristics of a coroutine:
 </section>
 <section id="ring3-preemption" class="level2">
 <h2><span class="header-section-number">4.2</span> Ring3 Preemption</h2>
-<section id="mergerequest-10" class="level4 unnumbered">
-<h4>MergeRequest</h4>
-<p>I’ve added few more code in origin/ring3 branch. Please merge it with your master branch</p>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="ex">user@host</span>:~/hohlabs$ git merge origin/ring3</code></pre></div>
-</section>
 <section id="aim-10" class="level4 unnumbered">
 <h4>Aim</h4>
 <p>In this part, we’ll learn about preempting user program while enhancing our kernel to make it responsive to key presses while long computation task is running in ring3/user mode.</p>
@@ -1782,10 +1777,6 @@ the fundamental characteristics of a coroutine:
 </section>
 <section id="upcallsignals" class="level2">
 <h2><span class="header-section-number">4.3</span> Upcall/Signals</h2>
-<section id="mergerequest-11" class="level4 unnumbered">
-<h4>MergeRequest</h4>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="ex">user@host</span>:~/hohlabs$ git merge origin/ring3</code></pre></div>
-</section>
 <section id="aim-11" class="level4 unnumbered">
 <h4>Aim</h4>
 <p>In this part, we’ll learn about upcalls (passing information to the exception handler running in user mode) by letting the user process manage the exceptions(like INT3, page faults etc).</p>
@@ -1868,10 +1859,6 @@ the fundamental characteristics of a coroutine:
 </section>
 <section id="downcallsystem-call" class="level2">
 <h2><span class="header-section-number">4.4</span> Downcall/System call</h2>
-<section id="mergerequest-12" class="level4 unnumbered">
-<h4>MergeRequest</h4>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="ex">user@host</span>:~/hohlabs$ git merge origin/ring3</code></pre></div>
-</section>
 <section id="aim-12" class="level4 unnumbered">
 <h4>Aim</h4>
 <p>In this part, we’ll learn about downcalls/system calls by implementing following system calls: - You need to define the following function: system_call();</p>
@@ -2064,10 +2051,6 @@ the fundamental characteristics of a coroutine:
 <h1><span class="header-section-number">5</span> VirtualMem</h1>
 <section id="app-virtual-memory" class="level2">
 <h2><span class="header-section-number">5.1</span> App: Virtual Memory</h2>
-<section id="mergerequest-13" class="level4 unnumbered">
-<h4>MergeRequest</h4>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="ex">user@host</span>:~/hohlabs$ git merge origin/ring3</code></pre></div>
-</section>
 <section id="aim-13" class="level4 unnumbered">
 <h4>Aim</h4>
 <p>In this part, we’ll learn about virtual memory by emulating an array of <span class="math inline"><em>N</em><sub><em>v</em></sub></span> virtual pages using <span class="math inline"><em>N</em><sub><em>p</em></sub></span> physical pages.</p>
