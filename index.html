@@ -737,7 +737,7 @@ code > span.in { color: #808080; font-weight: bold; font-style: italic; } /* Inf
 <p>In this part, we’ll learn about “asymmetric-stackless coroutines” while enhancing our kernel to make it responsive to key presses while long computation task is running.</p>
 <ul>
 <li>You shall implement the long computation task as a stackless coroutine using the given APIs and add a new menu item/builtin command for the same.</li>
-<li>On key press, the status bar shall be updated with ‘the number of keys pressed so far’ while this long computation task is running(not after it finishes).</li>
+<li>On key press, the status bar shall be updated with ‘the number of keys pressed so far’ while this long computation task is running(not after it finishes).  In other words, the shell will not be blocked and the user will be able to run other commands while the coroutine is running.</li>
 <li>If we select older menu item, shell still take seconds to respond to update status bar. If we select new menu item, shell will be updating status bar, while the computation is running.. Result of both the menu items should be same.</li>
 <li>Atmost one pending long computation task at any point in time.</li>
 <li>Only convert one long computation task to coroutine form(If your shell supports multiple long computation tasks).</li>
@@ -929,7 +929,7 @@ the fundamental characteristics of a coroutine:
 <p>In this part, we’ll learn about “fibers” while enhancing our kernel to make it responsive to key presses while long computation task is running.</p>
 <ul>
 <li>You shall implement the long computation task as a fiber using the given APIs and add a new menu item/builtin command for the same.</li>
-<li>On key press, the status bar shall be updated with ‘the number of keys pressed so far’ while this long computation task is running(not after it finishes).</li>
+<li>On key press, the status bar shall be updated with ‘the number of keys pressed so far’ while this long computation task is running(not after it finishes).  In other words, the shell will not be blocked and the user will be able to run other commands while the fiber is running.</li>
 <li>Result of all three menu items should be same.</li>
 <li>Atmost one pending long computation task at any point in time.</li>
 <li>Only convert one long computation task to fiber form(If your shell supports multiple long computation tasks).</li>
