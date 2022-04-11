@@ -1583,6 +1583,7 @@ the fundamental characteristics of a coroutine:
 <h4>Tip</h4>
 <ul>
 <li>use <code>std::atomic&lt;T&gt;</code></li>
+<li>In C/C++, <code>int</code> (signed integer) overflow is undefined behaviour.  Use <code>unsigned</code> types (<code>size_t</code>, <code>uint32_t</code>, ...) for your counters.</li>
 <li>Note that shell_update may be called multiple times before shell_step or other functions will be called. If you’ve made a hack on lab 1.4(shell): like if you assumed that shell_step() will be called exactly after shell_step() and exactly the same number of times - it’s time to fix your shell.</li>
 </ul>
 <p>PS: shell_update() is your keyboard handler, on every key press it will be called. it’s independent of shell_step()</p>
